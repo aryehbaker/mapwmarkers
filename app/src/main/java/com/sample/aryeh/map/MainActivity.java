@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,29 +16,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.sample.aryeh.map.YelpFusionApi.*;
 import com.sample.aryeh.map.MyServer.restaurantgetter;
 import com.sample.aryeh.map.MyServer.Restaurant.Restaurant;
 import com.yelp.fusion.client.models.Business;
 import com.yelp.fusion.client.models.SearchResponse;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -58,7 +46,7 @@ public class MainActivity extends AppCompatActivity
      int mMarker = 90;
     RecyclerView rece;
     CardPlaceAdapter adapter;
-    // Fetch a list of your server restaurants.
+
 
 
 
@@ -78,13 +66,16 @@ public class MainActivity extends AppCompatActivity
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.Maps));
         mapFragment.getMapAsync(this);
+
         rece = (RecyclerView)findViewById(R.id.rec);
-        //new CardPlaceAdapter(bus, mMarker);
-        // Attach the adapter to the recyclerview to populate items
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        rece.setHasFixedSize(true);
+
+         // Attach the adapter to the recyclerview to populate items
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rece.setLayoutManager(layoutManager);
-        rece.setAdapter(adapter);
 
         //PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
         //        getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -247,6 +238,8 @@ public class MainActivity extends AppCompatActivity
               m2[i + restaurantIterator].setTag(i + restaurantIterator);
 
            }
+           adapter = new CardPlaceAdapter(cs);
+            rece.setAdapter(adapter);
     }
 
 
