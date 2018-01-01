@@ -43,7 +43,10 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        return 0;
+        int ret;
+        if(position >= sizeL)ret = 2;
+        else ret = 0;
+        return ret;
     }
     @Override
     public CardPlaceAdapter.ViewHolder onCreateViewHolder(
@@ -89,20 +92,21 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
             case 2:
                 CardView cardView2 = holder.cardView;
                 TextView textView2 = (TextView) cardView2.findViewById(R.id.name);
-                textView2.setText(c.get(position).getName());
+                textView2.setText(c.get(position-sizeL).getName());
                 textView = (TextView) cardView2.findViewById(R.id.address);
-                textView.setText(c.get(position).getAddress().getBuilding() + " "
-                        +c.get(position).getAddress().getStreet()+ " "
-                        +c.get(position).getAddress().getZipcode());
+                textView.setText(c.get(position-sizeL).getAddress().getBuilding() + " "
+                        +c.get(position-sizeL).getAddress().getStreet()+ " "
+                        +c.get(position-sizeL).getAddress().getZipcode());
                 textView.append(" ");
                 textView = (TextView) cardView2.findViewById(R.id.phone);
-                textView.setText(c.get(position).getId());
+                textView.setText(c.get(position-sizeL
+                ).getId());
                 break;
         }
     }
     @Override
     public int getItemCount(){
 //Return the number of items in the data set
-        return sizeL;
+        return (sizeL + sizeL2);
     }
 }

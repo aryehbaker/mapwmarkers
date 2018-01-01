@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         rece = (RecyclerView)findViewById(R.id.rec);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        rece.setHasFixedSize(true);
+       // rece.setHasFixedSize(true);
 
          // Attach the adapter to the recyclerview to populate items
         LinearLayoutManager layoutManager
@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity
                 }
         );
     }
+
 
 
     public void putMarkers(combinedSource cs){

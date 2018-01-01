@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/map-with-markers-from-api-s" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mapmarker" vcs="Git" />
     <mapping directory="$USER_HOME$/repositories/map1" vcs="Git" />
   </component>
 </project>
