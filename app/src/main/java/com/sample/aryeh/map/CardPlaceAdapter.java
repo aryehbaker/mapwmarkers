@@ -89,8 +89,8 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
                 //textView.append(b.get(pPosition).getLocation().getState());
                 //textView.append(" ");
                 textView.append(b.get(pPosition).getLocation().getZipCode());
-                textView = (TextView) cardView.findViewById(R.id.phone);
-                textView.setText(b.get(pPosition).getPhone());
+                textView = (TextView) cardView.findViewById(R.id.phone);//use for distance
+                textView.setText(Double.toString(f.getDistance()));
                 break;
             case 2:
                 CardView cardView2 = holder.cardView;
@@ -101,8 +101,8 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
                         +c.get(pPosition).getAddress().getStreet()+ " "
                         +c.get(pPosition).getAddress().getZipcode());
                 textView.append(" ");
-                textView = (TextView) cardView2.findViewById(R.id.phone);
-                textView.setText(c.get(pPosition).getId());
+                textView = (TextView) cardView2.findViewById(R.id.phone);//use for distance
+                textView.setText(Double.toString(f.getDistance()));
                 break;
         }
     }
