@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sample.aryeh.map.MyServer.Restaurant.Restaurant;
+import com.sample.aryeh.map.YelpFusionApi.combinedForView;
 import com.yelp.fusion.client.models.Business;
 
 
@@ -23,6 +24,7 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
     int sizeL, bIterator = 0;
     List<Restaurant> c;
     int sizeL2, cIterator = 0;
+    ArrayList<combinedForView>d;
 
     public CardPlaceAdapter (ArrayList<Business> b, int sizeL){this.b=b;this.sizeL=sizeL;}
     public CardPlaceAdapter (combinedSource cs){
@@ -30,6 +32,7 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
         this.sizeL=cs.getBussiness().size();
         this.c=cs.getRestaurants();
         this.sizeL2 = cs.getRestaurants().size();
+        this.d = cs.c;
     }
 
     //Provide a reference to the views used in the recycler view
@@ -43,10 +46,8 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        int ret;
-        if(position >= sizeL)ret = 2;
-        else ret = 0;
-        return ret;
+
+        return(d.get(position).getType());
     }
     @Override
     public CardPlaceAdapter.ViewHolder onCreateViewHolder(
@@ -70,6 +71,8 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
+        combinedForView f = d.get(position);
+        int pPosition = f.getTypePlace();
         switch (holder.getItemViewType()) {
             case 0:
 //Set the values inside the given view
@@ -77,36 +80,35 @@ class CardPlaceAdapter extends RecyclerView.Adapter<CardPlaceAdapter.ViewHolder>
                 ImageView imageView = (ImageView) cardView.findViewById(R.id.imageButton);
                 imageView.setImageResource(R.drawable.yelp_trademark);
                 TextView textView = (TextView) cardView.findViewById(R.id.name);
-                textView.setText(b.get(position).getName());
+                textView.setText(b.get(pPosition).getName());
                 textView = (TextView) cardView.findViewById(R.id.address);
-                textView.setText(b.get(position).getLocation().getAddress1());
+                textView.setText(b.get(pPosition).getLocation().getAddress1());
                 textView.append(" ");
-                //textView.append(b.get(position).getLocation().getCity());
+                //textView.append(b.get(pPPosition).getLocation().getCity());
                 //textView.append(", ");
-                //textView.append(b.get(position).getLocation().getState());
+                //textView.append(b.get(pPosition).getLocation().getState());
                 //textView.append(" ");
-                textView.append(b.get(position).getLocation().getZipCode());
+                textView.append(b.get(pPosition).getLocation().getZipCode());
                 textView = (TextView) cardView.findViewById(R.id.phone);
-                textView.setText(b.get(position).getPhone());
+                textView.setText(b.get(pPosition).getPhone());
                 break;
             case 2:
                 CardView cardView2 = holder.cardView;
                 TextView textView2 = (TextView) cardView2.findViewById(R.id.name);
-                textView2.setText(c.get(position-sizeL).getName());
+                textView2.setText(c.get(pPosition).getName());
                 textView = (TextView) cardView2.findViewById(R.id.address);
-                textView.setText(c.get(position-sizeL).getAddress().getBuilding() + " "
-                        +c.get(position-sizeL).getAddress().getStreet()+ " "
-                        +c.get(position-sizeL).getAddress().getZipcode());
+                textView.setText(c.get(pPosition).getAddress().getBuilding() + " "
+                        +c.get(pPosition).getAddress().getStreet()+ " "
+                        +c.get(pPosition).getAddress().getZipcode());
                 textView.append(" ");
                 textView = (TextView) cardView2.findViewById(R.id.phone);
-                textView.setText(c.get(position-sizeL
-                ).getId());
+                textView.setText(c.get(pPosition).getId());
                 break;
         }
     }
     @Override
     public int getItemCount(){
 //Return the number of items in the data set
-        return (sizeL + sizeL2);
+        return (d.size());
     }
 }

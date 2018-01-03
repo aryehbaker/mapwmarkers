@@ -165,20 +165,20 @@ public class MainActivity extends AppCompatActivity
         restaurantgetter client = retrofit.create(restaurantgetter.class);
         return client.getRestaurants(lat, longi);
 
-    }
+
+
+
+}
     public Observable <combinedSource> combineServerResponse() {
         return Observable.zip(
                 getYelpResponse(),
                 getMyServer(),
                 (search, rester) -> {
                     ArrayList<Business> b = search.getBusinesses();
-                    return new combinedSource(b, rester);
+                    return new combinedSource(b, rester,lat,longi);
                 }
         );
     }
-
-
-
     public void putMarkers(combinedSource cs){
         double lowlat = lat, hilat = lat, blat = lat, lowlongi = longi, hilongi = longi, blongi = longi;
         LatLng y;
