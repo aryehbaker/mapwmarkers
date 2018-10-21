@@ -108,7 +108,12 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void onError(Throwable e) {
-                        //Handle error
+                        Context context = getApplicationContext();
+                        String text = e.getLocalizedMessage() + " on failure combined source error";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();//Handle error
                     }
 
                     @Override
